@@ -11,15 +11,17 @@ class Neural_Network
       this.input_dim = input_dim
       this.output_dim = output_dim      
     }
-    
-    add_layer()
-    {
 
+    static layers = [new Layer(this.input_dim, 'input', 'default_ff')]
+    
+    add_layer(nodes, activation_function, layer_type)
+    {
+      layers.splice((layers.length), 0, new Layer(nodes, activation_function, layer_type));
     }
     
-    //feedforward
-
     //generate weights and biases
+
+    //feedforward
 
     //get minibatches
 
