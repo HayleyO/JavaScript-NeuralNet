@@ -3,18 +3,21 @@
 class Neural_Network 
 {
     //variable for matrixes of weights and biases
-    constructor(minibatches, epochs, learning_rate) 
+    constructor(minibatches, epochs, learning_rate, input_dim, output_dim) 
     {
       this.minibatches = minibatches
       this.epochs = epochs
       this.learning_rate = learning_rate
-      
+      this.input_dim = input_dim
+      this.output_dim = output_dim      
     }
-    // add layer
     
-    //feed forward method
+    add_layer()
+    {
 
-    //activation function -- use an enum or object where type has an equation asscoiated with it
+    }
+    
+    //feedforward
 
     //generate weights and biases
 
@@ -24,7 +27,7 @@ class Neural_Network
 
     //activation function derivative
 
-    //stochastic gradient descent
+    //stochastic gradient descent //// potentially using adam
 
     //backpropagation 
 }
