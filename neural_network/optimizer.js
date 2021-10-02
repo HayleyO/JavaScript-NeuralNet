@@ -3,43 +3,59 @@ class Optimizer
 {
     constructor(optimizer_type, minibatches, epochs, learning_rate) 
     {
-        self.optimizer_type = optimizer_type
-        self.minibatches = minibatches
-        self.epochs = epochs
-        self.learning_rate = learning_rate
+        this.optimizer_type = optimizer_type;
+        this.minibatches = minibatches;
+        this.epochs = epochs;
+        this.learning_rate = learning_rate;
     }
 
-    setup_minibatches(input_data, labels)
+    setup_minibatches(input_data, input_labels)
     {
-        //shuffle input_data and labels with same seed
-        // let numMiniBatches = input_data.length/self.minibatches
-        // MiniBatch
-        // for (let i = 0; i < numMiniBatches; i++)
-        //      newMinibatch
-        //      for(int j = 0; j < self.minibatches; j++)
-        //          newMinibatch.add(input data)
-        //      MiniBatch.add(minibatch) Pretty sure this is push in javascript
-        // return [MiniBatch, MiniBatchLabels]
+        // param: input_data is an array of matricees
+        // param: input_labels is an array of matrices (as the labels of previous)
+        let shuffled = shuffle(input_data, input_labels);
+        let shuffled_data = shuffled[0], shuffled_labels = shuffled[1];
+
+        let MiniBatch = [];
+        let MiniBatchLabels = [];
+
+        let numMiniBatches = input_data.length/this.minibatches;
+        let counter = 0;
+        for (let i = 0; i < numMiniBatches; i++)
+        {
+            var newMiniBatch = [];
+            var newMiniBatchLabels = [];
+            for (let j = 0; j < this.minibatches; j++)
+            {
+                newMiniBatch.push(shuffled_data[counter]);
+                newMiniBatchLabels.push(shuffled_labels[counter]);
+                counter++;
+            }
+            MiniBatch.push(newMiniBatch);
+            MiniBatchLabels.push(newMiniBatchLabels);
+        }
+        return [MiniBatch, MiniBatchLabels];
     }
 
-    //stochastic gradient descent
-    stochastic_gradient_descent()
+    stochastic_gradient_descent(input_data, input_labels)
     {
-        // minibatches = setup_minibatches()
-        //for (let epoch = 0; epoch < self.epochs; epoch++)
-        //  for (let miniBatch = 0; miniBatch < minibatches.length; miniBatch++)
-        //      backpropoagation
-        //      update weights
+        minibatches = setup_minibatches(input_data, input_labels);
+        let minibatch_data = minibatches[0], minibatch_labels = minibatches[1];
+        for (let epoch = 0; epoch < self.epochs; epoch++)
+        {
+            for (let miniBatch = 0; miniBatch < minibatch_data.length; miniBatch++)
+            {
+                //backpropogation
+                //update weights
+            }
+        }
     }
 
     backpropogation()
     {
-        //for each layer layer.backpass()
-        //backpass shoult output weight and bias gradients for updating
-    }
-
-    update()
-    {
-        //update weights and biases with weight gradients and bias gradients, this is where the optimizer type comes into play
+        //this is where the particular optimizer comes in
+        //return gradients
+        //then update using backpass() per layer
+        //backprop should output weight and bias gradients for updating for each layer.backpass()
     }
 }
