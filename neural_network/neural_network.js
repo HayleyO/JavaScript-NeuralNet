@@ -42,9 +42,9 @@ class Neural_Network
       return output;
     }
 
-    train(input, input_labels)
+    train(input_data, input_labels)
     {
-      this.optimizer.stochastic_gradient_descent();
+      this.optimizer.stochastic_gradient_descent(input_data, input_labels);
     }
 }
 

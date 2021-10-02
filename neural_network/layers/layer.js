@@ -32,7 +32,7 @@ class Layer
       return result;
     }
 
-    backwardpass()//param: weight_gradient, bias_gradient    
+    backwardpass()//param: weight_gradient, bias_gradient, learning_rate, minibatches    
     {
       //self.biases = biases - (bias_gradient * (learning_rate/minibatches))
       //self.weights = weights - (weights * (learning_rate/minibatches))
