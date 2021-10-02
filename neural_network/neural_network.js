@@ -4,15 +4,13 @@ class Neural_Network
 {
     constructor(input_dim, output_dim, optimizer_type, minibatches, epochs, learning_rate) 
     {
-      this.input_dim = input_dim  
+      this.input_dim = input_dim //How will we handle h_fxw_fxc_f? [h_f, w_f, c_f]??? Will implement in layer
       this.output_dim = output_dim
 
       this.optimizer = new Optimizer(optimizer_type, minibatches, epochs, learning_rate)
     }
 
     static layers = [new Layer(this.input_dim, 'input', 'default_ff')]
-    static weights = []
-    static biases = []
     
     add_layer(nodes, activation_function, layer_type)
     {
@@ -21,26 +19,11 @@ class Neural_Network
 
     generate_weights_and_biases()
     {
-      //generate based on dimensions of input (how do we muliple dimensional input)
       if(layers.length > 1)
       {
-        for (let layer = 0; layer < layers.length -1; layer++)
+        for (let layer = 0; layer < layers.length-2; layer++)
         {
-          if(layer==0)
-          {
-            //Weight dims = next_layer nodes, input_dims
-            //Bias dims = next_layer nodes, 1
-          }
-          else if(layer==layers.length-1)
-          {
-            //Weights = output_dims, previous_layer nodes
-            //Bias dims = output_dims nodes, 1
-          }
-          else
-          {
-            //Weights = current_layer dims, previous_layer dims
-            //Weights = current_layer dims
-          }
+          layers[layer].generate_layer_weights_and_biases(layers[layer+1])
         }
       }
       else
