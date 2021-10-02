@@ -4,13 +4,13 @@ class Neural_Network
 {
     constructor(input_dim, output_dim, optimizer_type, minibatches, epochs, learning_rate) 
     {
-      this.input_dim = input_dim //How will we handle h_fxw_fxc_f? [h_f, w_f, c_f]??? Will implement in layer
-      this.output_dim = output_dim
+      this.input_dim = input_dim; //How will we handle h_fxw_fxc_f? [h_f, w_f, c_f]??? Will implement in layer
+      this.output_dim = output_dim;
 
-      this.optimizer = new Optimizer(optimizer_type, minibatches, epochs, learning_rate)
+      this.optimizer = new Optimizer(optimizer_type, minibatches, epochs, learning_rate);
     }
 
-    static layers = [new Layer(this.input_dim, 'input', 'default_ff')]
+    static layers = [new Layer(this.input_dim, 'input', 'default_ff')];
     
     add_layer(nodes, activation_function, layer_type)
     {
@@ -23,23 +23,28 @@ class Neural_Network
       {
         for (let layer = 0; layer < layers.length-2; layer++)
         {
-          layers[layer].generate_layer_weights_and_biases(layers[layer+1])
+          layers[layer].generate_layer_weights_and_biases(layers[layer+1]);
         }
       }
       else
       {
-        throw 'Not enough layers to generate weights and biases.'
+        throw 'Not enough layers to generate weights and biases.';
       }
     }
 
-    feedforward()
+    feedforward(input)
     {
-      //For each layer, layer.feedforward, pass in current weight
+      output = input;
+      for (let layer = 0; layer < layer.length-2; layer++)
+      {
+        output = layers[layer].feedforward(output,layers[layer+1]);
+      }
+      return output;
     }
 
-    train()
+    train(input, input_labels)
     {
-      //optimizer.sgd
+      this.optimizer.stochastic_gradient_descent();
     }
 }
 
