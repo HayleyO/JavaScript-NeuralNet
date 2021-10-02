@@ -30,8 +30,9 @@ class Layer
       // evaluate from next layer's activation function 
     }
 
-    backwardpass()
+    backwardpass()//param: weight_gradient, bias_gradient    
     {
-
+      //self.biases = biases - (bias_gradient * (learning_rate/minibatches))
+      //self.weights = weights - (weights * (learning_rate/minibatches))
     }
 }

@@ -34,12 +34,9 @@ class Optimizer
 
     backpropogation()
     {
-        //for each layer layer.backpass()
-        //backpass shoult output weight and bias gradients for updating
-    }
-
-    update()
-    {
-        //update weights and biases with weight gradients and bias gradients, this is where the optimizer type comes into play
+        //this is where the particular optimizer comes in
+        //return gradients
+        //then update using backpass() per layer
+        //backprop should output weight and bias gradients for updating for each layer.backpass()
     }
 }
