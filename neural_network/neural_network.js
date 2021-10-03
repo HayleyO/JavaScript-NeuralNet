@@ -12,9 +12,24 @@ class Neural_Network
 
     static layers = [new Layer(this.input_dim, 'input', 'default_ff')];
     
-    add_layer(nodes, activation_function, layer_type)
+    add_layer(nodes, activation_function, layer_type = 'sequential')
     {
-      layers.splice((layers.length), 0, new Layer(nodes, activation_function, layer_type));
+      switch(expression)
+      {
+        case 'sequential':
+          layers.splice((layers.length), 0, new Layer(nodes, activation_function));
+          break;
+        case 'conv2d':
+          break;
+        case 'dropout':
+          break;
+        case 'dense':
+          break;
+        case 'flatten':
+          break;
+        case 'relu':
+          break;
+      }      
     }
 
     generate_weights_and_biases()
@@ -34,17 +49,19 @@ class Neural_Network
 
     feedforward(input)
     {
-      output = input;
+      var outputs = []
+      var output = input;
       for (let layer = 0; layer < layer.length-2; layer++)
       {
         output = layers[layer].feedforward(output,layers[layer+1]);
+        outputs.push(output)
       }
-      return output;
+      return outputs;
     }
 
     train(input_data, input_labels)
     {
-      this.optimizer.stochastic_gradient_descent(input_data, input_labels);
+      this.optimizer.stochastic_gradient_descent(this, input_data, input_labels);
     }
 }
 

@@ -20,6 +20,7 @@ function shuffle(array)
 function shuffle(array1, array2) 
 {
     //THIS IS UNDER THE ASSUMPTION ARRAY1 AND ARRAY2 ARE OF THE SAME SIZE
+    //TODO: ADD AN EXCEPTION HERE IF THEY ARE NOT/ABSTRACT TO ALLOW shuffle([array]) and shuffle as many arrays as needed with same key
     let currentIndex = array1.length,  randomIndex;
   
     // While there remain elements to shuffle...

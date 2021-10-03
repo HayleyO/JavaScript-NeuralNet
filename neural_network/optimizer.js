@@ -37,7 +37,7 @@ class Optimizer
         return [MiniBatch, MiniBatchLabels];
     }
 
-    stochastic_gradient_descent(input_data, input_labels)
+    stochastic_gradient_descent(nn, input_data, input_labels)
     {
         minibatches = setup_minibatches(input_data, input_labels);
         let minibatch_data = minibatches[0], minibatch_labels = minibatches[1];
@@ -45,7 +45,43 @@ class Optimizer
         {
             for (let miniBatch = 0; miniBatch < minibatch_data.length; miniBatch++)
             {
-                //backpropogation
+                //array of bias gradients the size of n
+                //array of weight gradients the size of n
+                for (let data = 0; input < minibatch_data[miniBatch].length; data++) //For all the n data
+                {
+                    //Zero bias gradients/weight gradients
+                    var input = minibatch_data[miniBatch][data];
+                    var label = minibatch_labels[miniBatch][data];
+                    //a is the outputs per layer
+                    var z = [input].concat(nn.feedforward(input));
+                    
+                    // z = ouputs of layers
+                    // a = activation functions
+                    // y = labels
+                    // x = inpust of layers
+                    
+
+                    // ∂L/∂a = cost function derivation in regards to activation function
+                    // ∂a/∂z = derivative of activation function
+                    // ∂L/∂z = ∂L/∂a * ∂a/∂z derivative of cost function with respect to outputs
+                    // ∂z/∂w = x 
+                    // ∂L/∂dw = (∂L/∂a * ∂a/∂z * ∂z/∂w) = ∂L/∂z * ∂z/∂w
+                    // ∂L/∂b = ∂L/∂z * ∂z/∂b = ∂L/∂z * 1
+                    
+                    // bg = ∂L/∂b = ∂L/∂z = ∂L/∂z= ∂L/∂a*∂a/∂z
+                    // wg = ∂L/∂w = dL/∂z * ∂z/∂w = x * bg 
+                    
+                    // bg_(l-1) = ∂L_(l-1)/∂Z = (weights_l)^T*bg_l*derivative of activation function(a)
+                    // wg(l-1) = bg_(l-1) * ∂z/∂w = bg_(l-1) * a_(l-1)^T
+
+                    // last layer bias gradient = cost function (loss function I suppose) derivative (a-y) * activation function derivative (a*(1-a))
+                    // bg = ((a-y)*)a*(1-a)
+                    // wg =(a^(L-1)) * bg
+
+                    // bg = (weights_(l+1)^T*bg) * derivative of activation function (a*(1-a))
+                    // wg = bg * a_(l-1)^T
+                }
+                //add up corresponding gradients
                 //update weights
             }
         }
